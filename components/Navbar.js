@@ -29,7 +29,7 @@ export default function Navbar() {
                                         </a>
                                     </Link>
                                 </li>
-                                <li className="rounded border ">
+                                <li className="rounded border">
                                     <Link
                                         className=" cursor-pointer"
                                         href={`/${username}`}
