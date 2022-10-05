@@ -5,16 +5,18 @@ import Image from "next/image";
 import Button from "./Button";
 
 export default function Navbar() {
-    const user = true;
-    const username = true;
+    const user = null;
+    const username = null;
 
     return (
         <div className="flex  items-center md:px-40 px-10 h-16 uppercase bg-slate-900 mb-10  ">
             <ul className=" flex flex-1 justify-between items-center">
                 <li>
-                    <Link href="\">
+                    <Link href="/">
                         <a>
-                            <Button value={"Feed"} />
+                            <Button className="bg-slate-900 text-white bold h-10">
+                                Feed
+                            </Button>
                         </a>
                     </Link>
                 </li>
@@ -25,7 +27,9 @@ export default function Navbar() {
                                 <li>
                                     <Link href="/admin">
                                         <a>
-                                            <Button value="Write Posts" />
+                                            <Button className="bg-slate-900 text-white h-10">
+                                                Write Posts
+                                            </Button>
                                         </a>
                                     </Link>
                                 </li>
@@ -35,7 +39,10 @@ export default function Navbar() {
                                         href={`/${username}`}
                                     >
                                         <a>
-                                            <Image src={user?.photoURL} />
+                                            <Image
+                                                alt="userPIC"
+                                                src={user?.photoURL}
+                                            />
                                         </a>
                                     </Link>
                                 </li>
@@ -44,13 +51,13 @@ export default function Navbar() {
                     )}
 
                     {!username && (
-                        <li>
-                            <Link href="/landing">
-                                <a>
-                                    <Button value="Log in" />
-                                </a>
-                            </Link>
-                        </li>
+                        <Link href="/landing">
+                            <a>
+                                <Button className="bg-slate-900 text-white h-10">
+                                    Log In
+                                </Button>
+                            </a>
+                        </Link>
                     )}
                 </li>
             </ul>
