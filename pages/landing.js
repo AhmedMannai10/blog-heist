@@ -3,10 +3,12 @@ import Image from "next/image";
 import { auth } from "../lib/firebase";
 import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 import Button from "../components/Button";
+import { useContext } from "react";
+import { UserContext } from "../lib/context";
 
 export default function Landing(props) {
-    const user = null;
-    const username = null;
+    const { user, username } = useContext(UserContext);
+
     // 1. user signed out <SignInButton />
     // 2. user signed in, but missing username <Username />
     // 3. user signed in, has username <SigneOutButton />
@@ -53,10 +55,10 @@ function SignInButton() {
 function SignOutButton() {
     return (
         <button
-            onClick={() => signOut()}
+            onClick={() => signOut(auth)}
             className="flex min-w-10 justify-center items-center
-                  px-2 py-1 border-2 w-16 h-10 
-                  font-bold text-xl text-white rounded-md  relative"
+                  px-2 py-1 border-2 w-fit h-10 
+                  font-bold text-xl text-black rounded-md  relative"
         >
             Sign Out
         </button>
