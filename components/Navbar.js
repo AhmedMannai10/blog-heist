@@ -5,15 +5,20 @@ import Link from "next/link";
 import Image from "next/image";
 import Button from "./Button";
 import { signOut } from "firebase/auth";
+import { auth } from "../lib/firebase";
 
 export default function Navbar() {
     const { user, username } = useContext(UserContext);
+
+    console.log(
+        `username : ${username}\n user: ${user}, photo: ${user?.photoURL}`
+    );
 
     return (
         <div className="flex  items-center md:px-40 px-10 h-16 uppercase bg-slate-900 mb-10  ">
             <ul className=" flex flex-1 justify-between items-center">
                 <li>
-                    <Link href="/" >
+                    <Link href="/">
                         <a>
                             <Button className="bg-slate-900 text-white bold h-10">
                                 Feed
@@ -26,16 +31,15 @@ export default function Navbar() {
                         <>
                             <ul className=" flex flex-1 justify-between items-center gap-2  ">
                                 <li>
-                                    <Link
-                                        href="/landing"
-                                        onClick={() => signOut()}
+                                    <button
+                                        onClick={() => {
+                                            signOut(auth);
+                                        }}
                                     >
-                                        <a>
-                                            <Button className="text-white h-10 border-none bg-blue-700">
-                                                Sign Out
-                                            </Button>
-                                        </a>
-                                    </Link>
+                                        <Button className="text-white h-10 border-none bg-blue-700">
+                                            Sign Out
+                                        </Button>
+                                    </button>
                                 </li>
                                 <li>
                                     <Link href="/admin">
@@ -46,18 +50,15 @@ export default function Navbar() {
                                         </a>
                                     </Link>
                                 </li>
-                                <li className="rounded border">
-                                    <Link
-                                        className=" cursor-pointer"
-                                        href={`/${username}`}
-                                    >
-                                        <a>
-                                            <Image
-                                                alt="userPIC"
-                                                src={user?.photoURL}
-                                            />
-                                        </a>
-                                    </Link>
+                                <li className="rounded-full w-10 h-10 relative">
+                                    <a href={`/${username}`}>
+                                        <Image
+                                            alt="userPIC"
+                                            src={user?.photoURL}
+                                            layout="fill"
+                                            className=" rounded-full"
+                                        ></Image>
+                                    </a>
                                 </li>
                             </ul>
                         </>
