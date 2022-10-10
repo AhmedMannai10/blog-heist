@@ -2,13 +2,11 @@ import React, { useCallback } from "react";
 import Image from "next/image";
 import { auth, firestore } from "../lib/firebase";
 import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
-import Button from "../components/Button";
 import { useContext } from "react";
 import { UserContext } from "../lib/context";
 import { useState, useEffect } from "react";
 import debounce from "lodash.debounce";
-import { collection, doc, getDoc, writeBatch } from "firebase/firestore";
-import { async } from "@firebase/util";
+import { doc, getDoc, writeBatch } from "firebase/firestore";
 
 export default function Landing(props) {
     const { user, username } = useContext(UserContext);
@@ -77,15 +75,11 @@ function UsernameForm() {
 
     const { user, username } = useContext(UserContext);
 
-    useEffect(() => {
-        checkUsername(formValue);
-    }, [formValue]);
-
     const onSubmit = async (e) => {
         e.preventDefault();
 
         const userDoc = doc(firestore, `users/${user.uid}`);
-        const usernameDoc = getDoc(`username/${formValue}`);
+        const usernameDoc = doc(firestore, `username/${formValue}`);
 
         // Commit both docs together as a batch write.
         const batch = writeBatch(firestore);
@@ -94,10 +88,16 @@ function UsernameForm() {
             photoURL: user.photoURL,
             displayName: user.displayName,
         });
-        batch.set(usernameDoc, { uid: user.id });
+        batch.set(usernameDoc, { uid: user.uid });
 
         await batch.commit();
     };
+
+    useEffect(() => {
+        checkUsername(formValue);
+    }, [formValue]);
+
+
 
     function UsernameMessage({ username, isValid, loading }) {
         if (loading) {
@@ -144,7 +144,6 @@ function UsernameForm() {
                 const ref = doc(firestore, `username`, `${username}`);
                 const docSnap = await getDoc(ref);
                 console.log("Firesotre read executed!");
-                console.log(!docSnap.exists());
                 setIsValid(!docSnap.exists());
                 setLoading(false);
             }
