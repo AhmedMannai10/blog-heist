@@ -51,12 +51,19 @@ export default function Navbar() {
                                     </Link>
                                 </li>
                                 <li className="rounded-full w-10 h-10 relative">
-                                    <a href={`/${username}`}>
+                                    <a
+                                        href={`/${username.displayName.replaceAll(
+                                            /\s/g,
+                                            ""
+                                        )}`}
+                                    >
                                         <Image
                                             alt="userPIC"
-                                            src={user?.photoURL}
+                                            src={
+                                                !user?.photoURL || "/avatar.png"
+                                            }
                                             layout="fill"
-                                            className=" rounded-full"
+                                            className="rounded-full"
                                         ></Image>
                                     </a>
                                 </li>
