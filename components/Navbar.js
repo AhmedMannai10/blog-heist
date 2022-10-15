@@ -58,7 +58,7 @@ export default function Navbar() {
                                         <Image
                                             width={10} 
                                             height={10}
-u                                           alt="userPIC"
+                                            alt="userPIC"
                                             src={
                                                 user?.photoURL || "/avatar.png"
                                             }
