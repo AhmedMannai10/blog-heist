@@ -78,8 +78,8 @@ function UsernameForm() {
     const onSubmit = async (e) => {
         e.preventDefault();
 
-        const userDoc = await getDoc(firestore, `users/${user.uid}`);
-        const usernameDoc = await getDoc(firestore, `username/${formValue}`);
+        const userDoc = doc(firestore, `users/${user.uid}`);
+        const usernameDoc =  doc(firestore, `username/${formValue}`);
 
         // Commit both docs together as a batch write.
         const batch = writeBatch(firestore);

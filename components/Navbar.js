@@ -23,9 +23,9 @@ export default function Navbar() {
                 <li>
                     <Link href="/">
                         <a>
-                            <Button className="bg-slate-900 text-white bold h-10">
+                            <button className="bg-slate-900 text-white bold h-10 uppercase text-2xl font-bold tracking-wider border-2 rounded-md px-2">
                                 Feed
-                            </Button>
+                            </button>
                         </a>
                     </Link>
                 </li>
