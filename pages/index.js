@@ -2,7 +2,6 @@ import Link from "next/link";
 import Loader from "../components/Loader";
 import { useState } from "react";
 import {
-    fromMillis,
     collectionGroup,
     where,
     getDocs,
@@ -10,12 +9,11 @@ import {
     orderBy,
     startAfter,
 } from "firebase/firestore";
-import { firestore, postToJson } from "../lib/firebase";
+import { fromMillis, firestore, postToJson } from "../lib/firebase";
 import PostFeed from "../components/PostFeed";
-import Button from "../components/Button";
 
 // Max post to query per page
-const LIMIT = 1;
+const LIMIT = 3;
 
 export async function getServerSideProps(content) {
     // <collectionGroup -> grap any sub collection no matter where it is nested in the firestore
@@ -49,7 +47,7 @@ export default function Home(props) {
 
         const cursor =
             typeof last.createdAt === "number"
-                ? fromMillis(last.createdAt)
+                ? fromMillis(last.createdAt.seconds)
                 : last.createdAt;
 
         const query = collectionGroup(
@@ -57,10 +55,11 @@ export default function Home(props) {
             "posts",
             where("published", "==", true),
             orderBy("createdAt", "desc"),
-            startAfter(cursor).limit(LIMIT)
+            startAfter(cursor),
+            limit(LIMIT)
         );
 
-        const newPosts = (await getDocs(query)).map((doc) => doc.data());
+        const newPosts = (await getDocs(query)).docs.map((doc) => doc.data());
 
         setPosts(posts.concat(newPosts));
         setLoading(false);

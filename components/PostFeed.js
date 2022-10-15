@@ -11,7 +11,6 @@ const PostFeed = ({ posts, admin }) => {
 };
 
 function PostItem({ post, admin = false }) {
-      
     const wordCount = post?.content.trim().split(/\s+/g).length;
     const minutesToRead = (wordCount / 100 + 1).toFixed(0);
 
@@ -35,9 +34,7 @@ function PostItem({ post, admin = false }) {
                     {wordCount} words. {minutesToRead} min read
                     <span>💗 {post.heartCount} Hearts</span>
                 </span>
-                <span>
-                   Published Date {post.publishedAt}
-                </span>
+                <span>Published Date {post.publishedAt}</span>
             </footer>
         </div>
     );
