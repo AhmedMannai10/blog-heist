@@ -1,18 +1,21 @@
-import { userAgent } from "next/server";
 import React from "react";
 import Image from "next/image";
 const UserProfile = ({ user }) => {
     return (
-        <div>
-            <Image
-                alt="post image"
-                src={user}
-                className=" border-2 rounded-md bg-gray-400 text-slate-900"
-            />
+        <div className="flex flex-col justify-center items-center">
+            <span className=" relative rounded-full h-32 w-32">
+                <Image
+                    alt={`${user.displayName} picture`}
+                    src={user.photoURL || "/avatar.png"}
+                    layout="fill"
+                    className="rounded-full"
+                />
+            </span>
+
             <p>
-                <i>@{user.username}</i>
+                <i className=" font-bold">@{user.username}</i>
             </p>
-            <h1>{user.displayname}</h1>
+            <h1>{user.displayName}</h1>
         </div>
     );
 };

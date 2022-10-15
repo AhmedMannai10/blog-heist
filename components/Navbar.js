@@ -6,13 +6,16 @@ import Image from "next/image";
 import Button from "./Button";
 import { signOut } from "firebase/auth";
 import { auth } from "../lib/firebase";
+import { userAgentFromString } from "next/server";
 
 export default function Navbar() {
     const { user, username } = useContext(UserContext);
 
-    console.log(
-        `username : ${username}\n user: ${user}, photo: ${user?.photoURL}`
-    );
+    // console.log(
+    //     `username : ${JSON.stringify(username)}\n user: ${JSON.stringify(
+    //         user
+    //     )},\n photo: ${user?.photoURL}`
+    // );
 
     return (
         <div className="flex  items-center md:px-40 px-10 h-16 uppercase bg-slate-900 mb-10  ">
@@ -50,17 +53,14 @@ export default function Navbar() {
                                         </a>
                                     </Link>
                                 </li>
-                                <li className="rounded-full w-10 h-10 relative">
-                                    <a
-                                        href={`/${username.displayName.replaceAll(
-                                            /\s/g,
-                                            ""
-                                        )}`}
-                                    >
+                                <li className="w-10 h-10 relative">
+                                    <a href={`/${username}`}>
                                         <Image
-                                            alt="userPIC"
+                                            width={10} 
+                                            height={10}
+u                                           alt="userPIC"
                                             src={
-                                                !user?.photoURL || "/avatar.png"
+                                                user?.photoURL || "/avatar.png"
                                             }
                                             layout="fill"
                                             className="rounded-full"
