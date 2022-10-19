@@ -6,7 +6,6 @@ import Image from "next/image";
 import Button from "./Button";
 import { signOut } from "firebase/auth";
 import { auth } from "../lib/firebase";
-import { userAgentFromString } from "next/server";
 
 export default function Navbar() {
     const { user, username } = useContext(UserContext);
