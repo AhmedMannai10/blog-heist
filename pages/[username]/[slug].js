@@ -33,7 +33,11 @@ export async function getStaticProps({ params }) {
             limit(1)
         );
         const docu = (await getDocs(postRef)).docs[0];
-        console.log(docu.data());
+        if (!docu) {
+            return {
+                notFound: true, 
+            };
+        }
         post = postToJson(docu);
         path = doc(userDoc.ref, "posts", slug).path;
     }
