@@ -15,7 +15,7 @@ function PostItem({ post, admin = false }) {
     const minutesToRead = (wordCount / 100 + 1).toFixed(0);
 
     return (
-        <div className=" shadow-md bg-slate-200  p-4 rounded-md ">
+        <div className=" shadow-md bg-slate-200 my-2  p-4 rounded-md ">
             <Link href={`/${post.username}`}>
                 <a>
                     <b>By @{post.username}</b>
