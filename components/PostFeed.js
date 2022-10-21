@@ -23,7 +23,7 @@ function PostItem({ post, admin = false }) {
             </Link>
 
             <Link href={`/${post.username}/${post.slug}`}>
-                <h2>
+                <h2 className="cursor-pointer">
                     <a>
                         <b>{post.title}</b>
                     </a>

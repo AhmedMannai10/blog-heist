@@ -17,6 +17,13 @@ export async function getServerSideProps(context) {
 
     const userDoc = await getUserWithUsername(username);
 
+    // if no user, short circuit to 404 page
+    if(!userDoc){
+        return {
+            notFound: true,
+        };
+    }
+
     let user = null;
     let posts = null;
 

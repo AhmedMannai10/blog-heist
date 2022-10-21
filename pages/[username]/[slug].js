@@ -3,7 +3,6 @@ import {
     collection,
     collectionGroup,
     getDocs,
-    getDoc,
     query,
     where,
     doc,
@@ -61,20 +60,18 @@ export async function getStaticPaths() {
 }
 
 export default function PostPage(props) {
-    console.log(props.post + "||\n" + props.path);
     const postRef = doc(firestore, props.path);
     const [realtimePost] = useDocumentData(postRef);
-    console.log(realtimePost + "----!---");
 
     const post = realtimePost || props.post;
 
     return (
-        <main className="px-10 bg-slate-400 min-h-screen">
+        <main className="px-10 bg-slate-400 shadow-xl p-2 rounded-md">
             PostPage
             <section>
                 <PostContent post={post} />
             </section>
-            <aside className="rounded-lg shadow-lg bg-white max-w-sm">
+            <aside className="rounded-lg shadow-lg bg-white w-fit">
                 <p>
                     <strong>{post.heartCount || 0}</strong>
                 </p>
